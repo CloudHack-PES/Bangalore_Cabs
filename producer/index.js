@@ -6,7 +6,7 @@ app.use(express.json());
 
 app.post("/new_ride", (req, res) => {
   console.log(req.body);
-  res.send(request.body);
+  res.send(req.body);
 });
 
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));
