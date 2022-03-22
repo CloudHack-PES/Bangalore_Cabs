@@ -1,6 +1,20 @@
 const PORT = 6969; // temp port
 const express = require("express");
 const app = express();
+const amqp = require("amqplib");
+
+
+connect();
+async function connect() {
+    try {
+        const amqpServer = "http://localhost:5672";
+        connection = await amqp.connect(amqpServer);
+        channel = await connection.createChannel();
+        await channel.assertQueue("ride");
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 app.use(express.json());
 
