@@ -14,13 +14,25 @@ async function connect() {
         connection = await amqp.connect(amqpServer);
         channel = await connection.createChannel();
         await channel.assertQueue("ride");
+        channel.prefetch(1);
 
-        channel.consume("ride", data => {
-            console.log(`Received data at ${PORT}: ${Buffer.from(data.content)}`);
-            var waitTill = new Date(new Date().getTime() + 10 * 1000);
-            while(waitTill > new Date()){}
-            channel.ack(data);
+        channel.consume("ride",  data => {
+            
+            // // channel.ack(data);
 
+            // // var waitTill = new Date(new Date().getTime() + 3 * 1000);
+            
+            //  setTimeout(function() {
+                
+                channel.ack(data);
+                console.log(`Received data at ${PORT}: ${Buffer.from(data.content)}`);
+
+                var waitTill = new Date(new Date().getTime() + 2 * 1000);
+                while(waitTill > new Date()){}
+
+            //   }, 1 * 1000);
+              }, {
+                noAck: false        
         });
     } catch (error) {
         console.error(error);
