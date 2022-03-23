@@ -20,8 +20,7 @@ async function connect() {
 
 const createSession = async user => {
   await channel.sendToQueue("ride", Buffer.from(JSON.stringify(user)));
-  await channel.close();
-  await connection.close();
+ 
 };
 
 app.post("/new_ride", (req, res) => {

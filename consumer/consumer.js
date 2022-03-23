@@ -1,4 +1,4 @@
-const PORT = 6970; // temp port
+const PORT = 7500; // temp port
 const express = require("express");
 const app = express();
 const amqp = require("amqplib");
@@ -15,7 +15,7 @@ async function connect() {
         channel = await connection.createChannel();
         await channel.assertQueue("ride");
         channel.consume("ride", data => {
-            console.log(`Received data at 6970: ${Buffer.from(data.content)}`);
+            console.log(`Received data at ${PORT}: ${Buffer.from(data.content)}`);
             channel.ack(data);
         });
     } catch (error) {
