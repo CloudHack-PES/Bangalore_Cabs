@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const amqp = require("amqplib");
 
+app.use(express.json());
 
 connect();
 async function connect() {
@@ -16,14 +17,21 @@ async function connect() {
     }
 }
 
-app.use(express.json());
+
+const createSession = async user => {
+  await channel.sendToQueue("ride", Buffer.from(JSON.stringify(user)));
+  await channel.close();
+  await connection.close();
+};
 
 app.post("/new_ride", (req, res) => {
   console.log(req.body);
   res.send(req.body);
+  
 });
 app.post("/new_ride_matching_consumer", (req, res) => {
   console.log(req.body);
+  createSession(req.body);
   res.send(req.body);
 }); 
 
