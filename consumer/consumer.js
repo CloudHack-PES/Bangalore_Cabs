@@ -13,9 +13,9 @@ async function connect() {
         const amqpServer = "amqp://localhost:5672";
         connection = await amqp.connect(amqpServer);
         channel = await connection.createChannel();
-        await channel.assertQueue("session");
-        channel.consume("session", data => {
-            console.log(`Received data at 5002: ${Buffer.from(data.content)}`);
+        await channel.assertQueue("ride");
+        channel.consume("ride", data => {
+            console.log(`Received data at 6970: ${Buffer.from(data.content)}`);
             channel.ack(data);
         });
     } catch (error) {

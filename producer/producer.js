@@ -8,7 +8,7 @@ app.use(express.json());
 connect();
 async function connect() {
     try {
-        const amqpServer = "http://localhost:5672";
+        const amqpServer = "amqp://localhost:5672";
         connection = await amqp.connect(amqpServer);
         channel = await connection.createChannel();
         await channel.assertQueue("ride");
@@ -26,12 +26,12 @@ const createSession = async user => {
 
 app.post("/new_ride", (req, res) => {
   console.log(req.body);
+  createSession(req.body);
   res.send(req.body);
   
 });
 app.post("/new_ride_matching_consumer", (req, res) => {
   console.log(req.body);
-  createSession(req.body);
   res.send(req.body);
 }); 
 
