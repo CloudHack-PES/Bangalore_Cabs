@@ -1,0 +1,41 @@
+version: "3.2"
+services:
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - 5673:5672
+      - 15673:15672
+  consumer1:
+    image: consumer
+    ports:
+      - 7500:7500
+    depends_on:
+      - "rabbitmq"
+    environment:
+      AMQP_URL: amqp://rabbitmq:5672
+      PORT: 7500
+      
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
+  
+  consumer2:
+    image: consumer
+    ports:
+      - 7501:7501
+    depends_on:
+      - "rabbitmq"
+    environment:
+      AMQP_URL: amqp://rabbitmq:5672
+      PORT: 7501
+      
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
+  producer:
+    image: producer
+    ports:
+      - 6969:6969
+    depends_on:
+      - "rabbitmq"
+    environment:
+      AMQP_URL: amqp://rabbitmq:5672
+      PORT: 6969
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node producer.js'
