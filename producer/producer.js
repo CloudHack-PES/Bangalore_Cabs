@@ -8,7 +8,8 @@ app.use(express.json());
 connect();
 async function connect() {
   try {
-    const amqpServer = "amqp://rabbitmq:5672";
+    const amqpServer = process.env.AMQP_URL;
+    // const amqpServer = "amqp://rabbitmq:5672";
     connection = await amqp.connect(amqpServer);
     channel = await connection.createChannel();
     await channel.assertQueue("ride");
