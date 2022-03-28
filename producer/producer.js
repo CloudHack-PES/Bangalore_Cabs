@@ -13,6 +13,8 @@ async function connect() {
     connection = await amqp.connect(amqpServer);
     channel = await connection.createChannel();
     await channel.assertQueue("ride");
+    await channel.assertQueue("db");
+
   } catch (error) {
     console.error(error);
   }
@@ -20,6 +22,7 @@ async function connect() {
 
 const createSession = async (user) => {
   await channel.sendToQueue("ride", Buffer.from(JSON.stringify(user)));
+  await channel.sendToQueue("db", Buffer.from(JSON.stringify(user)));
 };
 
 app.post("/new_ride", (req, res) => {
