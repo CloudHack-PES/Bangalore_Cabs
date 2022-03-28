@@ -26,9 +26,13 @@ async function connect() {
         //  setTimeout(function() {
 
         channel.ack(data);
-        console.log(`Received data at ${PORT}: ${Buffer.from(data.content)}`);
+        res = JSON.parse(Buffer.from(data.content).toString());
 
-        var waitTill = new Date(new Date().getTime() + 2 * 1000);
+        console.log(res);
+        console.log(typeof res);
+        console.log(`Received data at ${PORT}: ${res}`);
+        console.log(Number(res.time));
+        var waitTill = new Date(new Date().getTime() + Number(res.time) * 1000);
         while (waitTill > new Date()) {}
 
         //   }, 1 * 1000);
