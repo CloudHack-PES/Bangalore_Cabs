@@ -1,4 +1,4 @@
-const PORT = 7500; // temp port
+const PORT = 7504; // temp port
 const express = require("express");
 const app = express();
 const amqp = require("amqplib");
@@ -27,7 +27,7 @@ async function connect() {
                 channel.ack(data);
                 console.log(`Received data at ${PORT}: ${Buffer.from(data.content)}`);
 
-                var waitTill = new Date(new Date().getTime() + 8 * 1000);
+                var waitTill = new Date(new Date().getTime() + 2 * 1000);
                 while(waitTill > new Date()){}
 
             //   }, 1 * 1000);
