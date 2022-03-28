@@ -21,21 +21,4 @@ app.post('/post', async (req, res) => {
   })
   res.json(post)
 })
-app.put('/publish/:id', async (req, res) => {
-  const { id } = req.params
-  const post = await prisma.post.update({
-    where: { id },
-    data: { published: true },
-  })
-  res.json(post)
-})
-app.delete('/user/:id', async (req, res) => {
-  const { id } = req.params
-  const user = await prisma.user.delete({
-    where: {
-      id,
-    },
-  })
-  res.json(user)
-})
-const server = app.listen(3000)
+app.listen(4000, () => console.log('Server started on port 4000'))
