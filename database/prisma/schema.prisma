@@ -17,4 +17,5 @@ model Ride {
   cost  Int
   seats Int
   time Int
+  name String
 }

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^3.11.0",
     "amqplib": "^0.8.0",
     "express": "^4.17.3",
     "prisma": "^3.11.0"
