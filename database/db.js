@@ -22,12 +22,15 @@ async function connect() {
     await channel.assertQueue("db");
     channel.prefetch(1);
 
-    channel.consume(
+     channel.consume(
       "db",
-      (data) => {
+      async ( data) => {
         channel.ack(data);
+
         res = JSON.parse(Buffer.from(data.content).toString());
         const { cost, pickup, destination,seats,time,name} = res
+        console.log(name);
+
         const ride = await prisma.ride.create({
        data: {
         cost: Number(cost),
@@ -35,7 +38,7 @@ async function connect() {
         destination:destination,
         seats:Number(seats),
         time:Number(time),
-        name,
+        name:name,
     },
   })
 
