@@ -10,7 +10,7 @@ var channel, connection;
 connect();
 async function connect() {
   try {
-    const amqpServer = "amqp://rabbitmq:5672";
+    const amqpServer = process.env.AMQP_URL;
     connection = await amqp.connect(amqpServer);
     channel = await connection.createChannel();
     await channel.assertQueue("ride");

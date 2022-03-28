@@ -9,3 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Ride {
+  id        Int      @default(autoincrement()) @id
+  pickup     String
+  destination   String
+  cost  Int
+  seats Int
+  time Int
+  name String
+}
