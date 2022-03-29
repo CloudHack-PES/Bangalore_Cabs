@@ -26,7 +26,7 @@ import {
     const formik = useFormik({
       initialValues: { name: "", seats: "", destination: "", pickup: "" },
       onSubmit: async (values, { setSubmitting, resetForm }) => {
-        const data = await fetch("/api/posts", {
+        const data = await fetch("http://localhost:6969/new_ride", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ import {
   
         setSubmitting(false);
   
-        if (data?.id) {
+        if (data?.name) {
           resetForm();
           router.push("/");
         }

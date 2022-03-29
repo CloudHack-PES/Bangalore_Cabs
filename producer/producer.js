@@ -27,6 +27,8 @@ const createSession = async (user) => {
 
 app.post("/new_ride", (req, res) => {
   createSession(req.body);
+  req.body.time="20";
+  req.body.cost="300";
   res.send(req.body);
 });
 app.post("/new_ride_matching_consumer", (req, res) => {
