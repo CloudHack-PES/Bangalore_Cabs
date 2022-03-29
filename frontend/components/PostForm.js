@@ -18,9 +18,10 @@ import {
   import {MdOutlineChair, MdOutlineLocationOn} from "react-icons/md";
   
   export const PostSchema = Yup.object().shape({
-    name: Yup.string().required("* Required"),
+    name: Yup.string().min(2, 'Too Short!')
+    .max(50, 'Too Long!').required("* Required"),
     pickup: Yup.string().required("* Required"),
-    seats: Yup.number().required("* Required"),
+    seats: Yup.number().min(1,'Atleast 1 person should come naa').max(4,'No more than 4 seats in car').required("* Required"),
     destination: Yup.string().required("* Required"),
   });
   
