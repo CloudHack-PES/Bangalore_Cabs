@@ -7,12 +7,15 @@ import {
     Box,
     Button,
     Center,
-    InputLeftAddon,
+    InputLeftElement,
     InputGroup,
   } from "@chakra-ui/react";
   import { useFormik } from "formik";
   import * as Yup from "yup";
   import { useRouter } from "next/router";
+  import {GrFormLocation} from "react-icons/gr";
+  import {AiOutlineCar, AiOutlineUser} from "react-icons/ai";
+  import {MdOutlineChair, MdOutlineLocationOn} from "react-icons/md";
   
   export const PostSchema = Yup.object().shape({
     name: Yup.string().required("* Required"),
@@ -70,6 +73,8 @@ import {
                   {formik.touched?.name && formik?.errors?.name}
                 </FormErrorMessage>
               </Box>
+              <InputGroup>
+                <InputLeftElement children={<AiOutlineUser size={20} color='gray'/>} />
               <Input
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
@@ -77,6 +82,7 @@ import {
                 type="name"
                 focusBorderColor="green.300"
               />
+                </InputGroup>
             </FormControl>
   
             <FormControl
@@ -91,7 +97,7 @@ import {
                 </FormErrorMessage>
               </Box>
               <InputGroup>
-                <InputLeftAddon children="📍" />
+                <InputLeftElement children={<AiOutlineCar size={19} color='gray'/>} />
                 <Input
                   onBlur={formik.handleBlur}
                   value={formik.values.pickup}
@@ -113,7 +119,8 @@ import {
                   {formik.touched?.seats && formik?.errors?.seats}
                 </FormErrorMessage>
               </Box>
-  
+              <InputGroup>
+              <InputLeftElement children={<MdOutlineChair size={19} color='gray'/>} />
               <Input
                 onBlur={formik.handleBlur}
                 value={formik.values.seats}
@@ -121,6 +128,7 @@ import {
                 type="seats"
                 focusBorderColor="green.300"
               />
+            </InputGroup>
             </FormControl>
   
             <FormControl
@@ -135,7 +143,7 @@ import {
                 </FormErrorMessage>
               </Box>
               <InputGroup>
-                <InputLeftAddon children="📌" />
+              <InputLeftElement children={< MdOutlineLocationOn size={19} color='gray'/>} />
                 <Input
                   onBlur={formik.handleBlur}
                   value={formik.values.destination}
