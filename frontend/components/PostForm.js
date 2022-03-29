@@ -13,7 +13,7 @@ import {
   import { useFormik } from "formik";
   import * as Yup from "yup";
   import { useRouter } from "next/router";
-  import {GrFormLocation} from "react-icons/gr";
+
   import {AiOutlineCar, AiOutlineUser} from "react-icons/ai";
   import {MdOutlineChair, MdOutlineLocationOn} from "react-icons/md";
   
