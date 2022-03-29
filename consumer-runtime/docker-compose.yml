@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+ consumer:
+    container_name : "Raja"
+    image: consumer
+    ports:
+      - 7504:7504
+    environment:
+      AMQP_URL: amqp://rabbitmq:5672
+      PORT: 7504
+      NAME: test
+      CONSUMER_ID: 3
+      PRODUCER: producer
+networks:
+  default:
+    external:
+      name: cloudhack_2_default   

@@ -18,4 +18,5 @@ model Ride {
   seats Int
   time Int
   name String
+  createdAt DateTime @default(now())
 }

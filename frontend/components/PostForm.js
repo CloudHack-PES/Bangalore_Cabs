@@ -30,7 +30,8 @@ import {
     const formik = useFormik({
       initialValues: { name: "", seats: "", destination: "", pickup: "" },
       onSubmit: async (values, { setSubmitting, resetForm }) => {
-        const data = await fetch("http://localhost:6969/new_ride", {
+        const data = await fetch("api/hello", {
+          mode: "cors",
           method: "POST",
           headers: {
             "Content-Type": "application/json",

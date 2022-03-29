@@ -7,16 +7,18 @@ services:
       - 5673:5672
       - 15673:15672
   
-  nitish:
+  database:
     image: postgres:latest
+    container_name: "postgres"
     environment:
-          - POSTGRES_USER=srini
+          - POSTGRES_USER=admin
           - POSTGRES_PASSWORD=wasd
           - POSTGRES_DB=cc
     ports:
       - 7433:5432
           
-  database:
+  database_server:
+    container_name: "database_server"
     build: ./database
     image: database
     ports:
@@ -24,7 +26,7 @@ services:
     environment:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 4000
-      DATABASE_URL: postgresql://srini:wasd@nitish:5432/cc
+      DATABASE_URL: postgresql://admin:wasd@database:5432/cc
 
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- npx prisma generate && npx prisma migrate deploy && node db.js'
     
@@ -40,6 +42,7 @@ services:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 7500
       NAME: Salman_Khan
+      PRODUCER: producer
 
       
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
@@ -55,10 +58,12 @@ services:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 7501
       NAME: Binod
+      PRODUCER: producer
       
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
   producer:
     build: ./producer
+    container_name: "producer"
     image: producer
     ports:
       - 6969:6969
@@ -68,3 +73,16 @@ services:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 6969
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node producer.js'
+  frontend:
+    image: frontend
+    container_name: "frontend"
+    build: ./frontend
+    logging:
+      driver: none
+    ports:
+      - 3000:3000
+    depends_on:
+      - "database_server"
+    environment:
+      PRODUCER: producer
+      DATABASE: database_server

@@ -29,7 +29,7 @@ async function connect() {
 
         res = JSON.parse(Buffer.from(data.content).toString());
         const { cost, pickup, destination,seats,time,name} = res
-        console.log(name);
+        // console.log(name);
 
         const ride = await prisma.ride.create({
        data: {
@@ -54,7 +54,9 @@ async function connect() {
 }
 
 app.get('/ride', async (req, res) => {
-  const rides = await prisma.ride.findMany()
+  const rides = await prisma.ride.findMany({
+    orderBy: {createdAt: "desc"}
+  })
   res.json(rides)
 })
 
