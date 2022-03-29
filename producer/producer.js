@@ -26,7 +26,6 @@ const createSession = async (user) => {
 };
 
 app.post("/new_ride", (req, res) => {
-  console.log(req.body);
   createSession(req.body);
   res.send(req.body);
 });

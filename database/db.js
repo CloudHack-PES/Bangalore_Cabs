@@ -59,5 +59,5 @@ app.get('/ride', async (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Consumer at ${PORT}`);
+  console.log(`database server at ${PORT}`);
 });
