@@ -38,7 +38,7 @@ import {
   
         if (data?.name) {
           resetForm();
-          router.push("/");
+          router.push("/messaege");
         }
       },
       validationSchema: PostSchema,
