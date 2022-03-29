@@ -7,12 +7,12 @@ services:
       - 5673:5672
       - 15673:15672
   
-  postgres:
+  nitish:
     image: postgres:latest
     environment:
-          - POSTGRES_USER= postgres
-          - POSTGRES_PASSWORD= wasd
-          - POSTGRES_DB= cc
+          - POSTGRES_USER=srini
+          - POSTGRES_PASSWORD=wasd
+          - POSTGRES_DB=cc
     ports:
       - 5433:5432
   database:
@@ -22,9 +22,9 @@ services:
     environment:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 4000
-      DATABASE_URL: postgresql://postgres:wasd@postgres:5432/cc
+      DATABASE_URL: postgresql://srini:wasd@nitish:5432/cc
 
-    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node db.js'
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- npx prisma migrate deploy && node db.js'
     
   consumer1:
     image: consumer
