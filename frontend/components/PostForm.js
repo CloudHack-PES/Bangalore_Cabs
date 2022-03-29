@@ -16,19 +16,15 @@ import {
   
   export const PostSchema = Yup.object().shape({
     name: Yup.string().required("* Required"),
-    phone: Yup.string()
-      .matches(/^[0-9]+$/, "Phone must be a number")
-      .min(10, "Must be exactly 10 digits")
-      .max(10, "Must be exactly 10 digits")
-      .required("* Required"),
-    tenure: Yup.number().required("* Required"),
-    amount: Yup.number().required("* Required"),
+    pickup: Yup.string().required("* Required"),
+    seats: Yup.number().required("* Required"),
+    destination: Yup.string().required("* Required"),
   });
   
   export default function PostForm() {
     const router = useRouter();
     const formik = useFormik({
-      initialValues: { name: "", phone: "", tenure: "", amount: "" },
+      initialValues: { name: "", seats: "", destination: "", pickup: "" },
       onSubmit: async (values, { setSubmitting, resetForm }) => {
         const data = await fetch("/api/posts", {
           method: "POST",
@@ -85,22 +81,22 @@ import {
   
             <FormControl
               mb="4"
-              id="phone"
-              isInvalid={formik.touched?.phone && formik?.errors?.phone}
+              id="pickup"
+              isInvalid={formik.touched?.pickup && formik?.errors?.pickup}
             >
               <Box display={"inline-block"}>
-                <FormLabel display={"inline"}>Phone No</FormLabel>
+                <FormLabel display={"inline"}>Pickup</FormLabel>
                 <FormErrorMessage display={"inline"} fontSize="xs">
-                  {formik.touched?.phone && formik?.errors?.phone}
+                  {formik.touched?.pickup && formik?.errors?.pickup}
                 </FormErrorMessage>
               </Box>
               <InputGroup>
-                <InputLeftAddon children="+91" />
+                <InputLeftAddon children="📍" />
                 <Input
                   onBlur={formik.handleBlur}
-                  value={formik.values.phone}
+                  value={formik.values.pickup}
                   onChange={formik.handleChange}
-                  type="phone"
+                  type="Pickup"
                   focusBorderColor="green.300"
                 />
               </InputGroup>
@@ -108,43 +104,43 @@ import {
   
             <FormControl
               mb="4"
-              id="tenure"
-              isInvalid={formik.touched?.tenure && formik?.errors?.tenure}
+              id="seats"
+              isInvalid={formik.touched?.seats && formik?.errors?.seats}
             >
               <Box display={"inline-block"}>
-                <FormLabel display={"inline"}>Tenure</FormLabel>
+                <FormLabel display={"inline"}>Seats</FormLabel>
                 <FormErrorMessage display={"inline"} fontSize="xs">
-                  {formik.touched?.tenure && formik?.errors?.tenure}
+                  {formik.touched?.seats && formik?.errors?.seats}
                 </FormErrorMessage>
               </Box>
   
               <Input
                 onBlur={formik.handleBlur}
-                value={formik.values.tenure}
+                value={formik.values.seats}
                 onChange={formik.handleChange}
-                type="tenure"
+                type="seats"
                 focusBorderColor="green.300"
               />
             </FormControl>
   
             <FormControl
               mb="4"
-              id="amount"
-              isInvalid={formik.touched?.amount && formik?.errors?.amount}
+              id="destination"
+              isInvalid={formik.touched?.destination && formik?.errors?.destination}
             >
               <Box display={"inline-block"}>
-                <FormLabel display={"inline"}>Amount</FormLabel>
+                <FormLabel display={"inline"}>Destination</FormLabel>
                 <FormErrorMessage display={"inline"} fontSize="xs">
-                  {formik.touched?.amount && formik?.errors?.amount}
+                  {formik.touched?.destination && formik?.errors?.destination}
                 </FormErrorMessage>
               </Box>
               <InputGroup>
-                <InputLeftAddon children="₹" />
+                <InputLeftAddon children="📌" />
                 <Input
                   onBlur={formik.handleBlur}
-                  value={formik.values.amount}
+                  value={formik.values.destination}
                   onChange={formik.handleChange}
-                  type="amount"
+                  type="destination"
                   focusBorderColor="green.300"
                 />
               </InputGroup>
