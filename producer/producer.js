@@ -29,7 +29,7 @@ app.post("/new_ride", (req, res) => {
   createSession(req.body);
   req.body.time="20";
   req.body.cost="300";
-  res.send(req.body);
+  res.status("200").json(req.body);
 });
 app.post("/new_ride_matching_consumer", (req, res) => {
   console.log(req.body);
