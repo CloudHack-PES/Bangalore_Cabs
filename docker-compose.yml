@@ -8,6 +8,7 @@ services:
       - 15673:15672
   consumer1:
     image: consumer
+    container_name: "Rajendra prasad"
     ports:
       - 7500:7500
     depends_on:
@@ -20,6 +21,7 @@ services:
   
   consumer2:
     image: consumer
+    container_name: "Bishwajith Ray"
     ports:
       - 7501:7501
     depends_on:
