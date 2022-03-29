@@ -5,7 +5,7 @@ export default function Nav() {
   return (
     <Flex px="2" py="1" justifyContent="center">
       <Heading>
-        Bengaluru
+        Blr
         <Text as={"span"} fontSize="lg" color={"green.400"}>
           {"   "}
           Cabs
