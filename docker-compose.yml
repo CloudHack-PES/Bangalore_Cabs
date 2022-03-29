@@ -15,7 +15,9 @@ services:
           - POSTGRES_DB=cc
     ports:
       - 7433:5432
+          
   database:
+    build: ./database
     image: database
     ports:
       - 4000:4000
@@ -27,6 +29,7 @@ services:
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- npx prisma generate && npx prisma migrate deploy && node db.js'
     
   consumer1:
+    build: ./consumer/
     image: consumer
     container_name: "Rajendra_prasad"
     ports:
@@ -52,6 +55,7 @@ services:
       
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
   producer:
+    build: ./producer
     image: producer
     ports:
       - 6969:6969
