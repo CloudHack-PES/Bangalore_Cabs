@@ -4,6 +4,14 @@ const app = express();
 const amqp = require("amqplib");
 
 var map_arr = [];
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions)); // Use this after the variable declaration
 
 app.use(express.json());
 
@@ -27,8 +35,10 @@ const createSession = async (user) => {
 
 app.post("/new_ride", (req, res) => {
   req.body.client_ip = req.ip;
+  req.body.time = "20";
+  req.body.cost = "300";
   createSession(req.body);
-  res.send(req.body);
+  res.status("200").json(req.body);
 });
 app.post("/new_ride_matching_consumer", (req, res) => {
   let o = {
