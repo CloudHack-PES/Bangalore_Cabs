@@ -24,7 +24,7 @@ services:
       PORT: 4000
       DATABASE_URL: postgresql://srini:wasd@nitish:5432/cc
 
-    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- npx prisma migrate deploy && node db.js'
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- npx prisma generate && npx prisma migrate deploy && node db.js'
     
   consumer1:
     image: consumer
