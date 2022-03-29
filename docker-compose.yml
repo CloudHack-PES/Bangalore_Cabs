@@ -14,7 +14,7 @@ services:
           - POSTGRES_PASSWORD=wasd
           - POSTGRES_DB=cc
     ports:
-      - 5433:5432
+      - 7433:5432
   database:
     image: database
     ports:
