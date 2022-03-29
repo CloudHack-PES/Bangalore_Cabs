@@ -6,6 +6,26 @@ services:
     ports:
       - 5673:5672
       - 15673:15672
+  
+  postgres:
+    image: postgres:latest
+    environment:
+          - POSTGRES_USER= postgres
+          - POSTGRES_PASSWORD= wasd
+          - POSTGRES_DB= cc
+    ports:
+      - 5433:5432
+  database:
+    image: database
+    ports:
+      - 4000:4000
+    environment:
+      AMQP_URL: amqp://rabbitmq:5672
+      PORT: 4000
+      DATABASE_URL: postgresql://postgres:wasd@postgres:5432/cc
+
+    command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node db.js'
+    
   consumer1:
     image: consumer
     container_name: "Rajendra_prasad"

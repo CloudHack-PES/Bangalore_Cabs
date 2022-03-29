@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma migrate dev
-
 CMD [ "npm", "start" ]
