@@ -35,6 +35,7 @@ async function connect() {
             console.log(error);
           });
         console.log("sent status");
+
         console.log(`Received data at ${PORT}: ${res}`);
         console.log(Number(res.time));
         var waitTill = new Date(new Date().getTime() + Number(res.time) * 1000);
