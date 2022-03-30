@@ -7,6 +7,10 @@ CREATE TABLE "Ride" (
     "seats" INTEGER NOT NULL,
     "time" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
+    "driverName" TEXT NOT NULL,
+    "clientIp" TEXT NOT NULL,
+    "consumerId" TEXT NOT NULL,
+    "consumerIp" TEXT NOT NULL,
 
     CONSTRAINT "Ride_pkey" PRIMARY KEY ("id")
 );

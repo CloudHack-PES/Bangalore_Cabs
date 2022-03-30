@@ -10,12 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Ride {
   id        Int      @default(autoincrement()) @id
+  createdAt DateTime @default(now()) 
   pickup     String
   destination   String
   cost  Int
   seats Int
   time Int
   name String
+  driverName String
+  clientIp String
+  consumerId String
+  consumerIp String
+  
 }
