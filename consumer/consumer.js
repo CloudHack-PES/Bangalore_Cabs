@@ -2,6 +2,7 @@ const PORT = process.env.PORT || 7500; // temp port
 const express = require("express");
 const app = express();
 const amqp = require("amqplib");
+const name = process.env.NAME || "Nitish";
 
 app.use(express.json());
 
@@ -19,23 +20,25 @@ async function connect() {
     channel.consume(
       "ride",
       (data) => {
-        // // channel.ack(data);
-
-        // // var waitTill = new Date(new Date().getTime() + 3 * 1000);
-
-        //  setTimeout(function() {
-
         channel.ack(data);
+        const axios = require("axios");
         res = JSON.parse(Buffer.from(data.content).toString());
+        axios
+          .post("http://host.docker.internal:6969/new_ride_matching_consumer", {
+            client_ip: res.client_ip,
+            name: name,
+          })
+          .then(function (response) {
+            // console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-        console.log(res);
-        console.log(typeof res);
         console.log(`Received data at ${PORT}: ${res}`);
         console.log(Number(res.time));
         var waitTill = new Date(new Date().getTime() + Number(res.time) * 1000);
         while (waitTill > new Date()) {}
-
-        //   }, 1 * 1000);
       },
       {
         noAck: false,
