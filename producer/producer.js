@@ -52,22 +52,7 @@ app.post("/new_ride_matching_consumer", (req, res) => {
   console.log(
     `client ${o.client_ip} is matched to consumer ${o.name} with ip ${o.consumer_ip} `
   );
-  try {
-    const axios = require("axios");
-    axios
-      .post("http://host.docker.internal:3000/status", {
-        name: o.name,
-      })
-      .then(function (response) {
-        // console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  } catch (e) {
-    console.log(e);
-  }
-
+  
   res.send(req.body);
 });
 
