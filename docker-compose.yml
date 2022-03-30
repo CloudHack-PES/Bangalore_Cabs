@@ -31,7 +31,7 @@ services:
   consumer1:
     build: ./consumer/
     image: consumer
-    container_name: "Rajendra_prasad"
+    container_name: "Salman_Bhai"
     ports:
       - 7500:7500
     depends_on:
@@ -39,12 +39,14 @@ services:
     environment:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 7500
+      NAME: Salman_Khan
+
       
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
   
   consumer2:
     image: consumer
-    container_name: "Bishwajith_Ray"
+    container_name: "Binod"
     ports:
       - 7501:7501
     depends_on:
@@ -52,6 +54,7 @@ services:
     environment:
       AMQP_URL: amqp://rabbitmq:5672
       PORT: 7501
+      NAME: Binod
       
     command: sh -c './delay.sh rabbitmq:5672 --timeout=30 -- node consumer.js'
   producer:
