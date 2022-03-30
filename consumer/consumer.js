@@ -24,7 +24,7 @@ async function connect() {
         const axios = require("axios");
         res = JSON.parse(Buffer.from(data.content).toString());
         axios
-          .post("http://host.docker.internal:6969/new_ride_matching_consumer", {
+          .post("http://producer:6969/new_ride_matching_consumer", {
             client_ip: res.client_ip,
             name: name,
           })
